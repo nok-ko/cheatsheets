@@ -1,0 +1,29 @@
+---
+syntax: shell
+tags: [ mac ]
+---
+# Open a path in the default application configured for the filetype (like double-clicking in Finder):
+open file.txt
+
+# Explicitly [R]eveal path in Finder (not so useful for globs):
+open -R file.txt
+
+# Open containing [D]irectory in Finder:
+open -D file.txt
+
+# Open in a specific [a]pplication
+open -a /Applications/Hex\ Fiend.app proprietaryfile.bin
+
+# As above but by [b]undle ID (for macOS developers/nerds):
+open -b com.ridiculousfish.HexFiend proprietaryfile.bin
+
+# Open a [n]ew instance explicitly:
+open -n -a /System/Applications/Preview.app
+
+# Works with URLs, too:
+open -a /Applications/Google\ Chrome.app http://kernel.org
+
+# [W]ait for the user to quit the application:
+# (combine with -n and you can use this invocation as your $EDITOR!)
+open -W /System/Applications/TextEdit.app myfile.txt
+

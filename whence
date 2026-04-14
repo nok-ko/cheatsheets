@@ -1,0 +1,9 @@
+---
+syntax: shell
+tags: [ builtin, zsh ]
+---
+whence <binary>
+# Ask shell for all possible candidates for <binary>:
+# [v]erbose [p]ath-search [a]ll-candidates
+whence -vpa ls
+# ls is /bin/ls
