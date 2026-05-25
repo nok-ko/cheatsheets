@@ -1,0 +1,45 @@
+# [[
+# Bash/zsh extended conditional expression (preferred over `test`/`[`)
+# Must be inside [[ ... ]]; no word-splitting or glob expansion on variables
+
+# --- FILE TESTS ---
+[[ -e FILE ]]     # exists (any type)
+[[ -f FILE ]]     # exists and is a regular file
+[[ -d FILE ]]     # exists and is a directory
+[[ -L FILE ]]     # exists and is a symlink
+[[ -r FILE ]]     # readable
+[[ -w FILE ]]     # writable
+[[ -x FILE ]]     # executable
+[[ -s FILE ]]     # exists and size > 0
+[[ -z FILE ]]     # file is empty (size == 0) — use -z for strings; -s for files
+[[ FILE1 -nt FILE2 ]]  # FILE1 newer than FILE2 (mtime)
+[[ FILE1 -ot FILE2 ]]  # FILE1 older than FILE2
+
+# --- STRING TESTS ---
+[[ -z "$s" ]]     # string is empty
+[[ -n "$s" ]]     # string is non-empty
+[[ "$a" == "$b" ]]    # string equality
+[[ "$a" != "$b" ]]    # string inequality
+[[ "$a" < "$b" ]]     # lexicographic less-than (no escaping needed, unlike [)
+[[ "$a" > "$b" ]]     # lexicographic greater-than
+[[ "$s" == *.txt ]]   # glob match (right side unquoted)
+[[ "$s" =~ ^[0-9]+$ ]] # regex match (ERE); match groups in ${BASH_REMATCH[@]}
+
+# --- INTEGER TESTS ---
+[[ "$a" -eq "$b" ]]   # equal
+[[ "$a" -ne "$b" ]]   # not equal
+[[ "$a" -lt "$b" ]]   # less than
+[[ "$a" -le "$b" ]]   # less than or equal
+[[ "$a" -gt "$b" ]]   # greater than
+[[ "$a" -ge "$b" ]]   # greater than or equal
+
+# --- LOGICAL OPERATORS ---
+[[ COND1 && COND2 ]]  # AND (short-circuits)
+[[ COND1 || COND2 ]]  # OR  (short-circuits)
+[[ ! COND ]]          # NOT
+
+# --- NOTES ---
+# No need to quote variables inside [[ ]] to avoid word-splitting
+# Glob patterns on right side of == must be unquoted to expand
+# =~ regex: quote the pattern if it contains spaces; leave unquoted otherwise
+# [[ ]] is not POSIX; use [ ] or test for /bin/sh scripts
